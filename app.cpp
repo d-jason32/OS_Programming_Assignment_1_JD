@@ -1,9 +1,3 @@
-/*
-16 GB of memory total 
-Divided into 100 Pages
-Each page has 160 MB. 
-*/
-
 #include <iostream>
 #include <cmath>
 #include <cstdlib>
@@ -15,14 +9,24 @@ void userMemoryAllocation(int arr[]) {
     int pagesUsed = 0;
     int startIndex = 0;
     
-    // Number of pages randomly generated (Size of proccess)
+    // Stop when all pages are used
     while (pagesUsed < totalPages){
+        // Initialize random int from 1-30
         int randomNum = (rand() % 30) + 1;
+
+        // Process size is number of pages * 80
         int processSize = randomNum * 80;
+
+        // Required pages is the ceiling of the processSize / 160. 
         int requiredPages = ceil( (double) processSize / 160);
+
+        // Update pagesUsed with the requiredPages needed for the current process.
         pagesUsed += requiredPages;
+
+        // Calculate unusedSpace. 
         int unusedSpace = (requiredPages*160) - processSize;
 
+        // Fill array with process id
         for(int i = startIndex; i < (startIndex + requiredPages) && i < totalPages; i++){
             arr[i] = currentProcess;
         }
@@ -35,8 +39,6 @@ void userMemoryAllocation(int arr[]) {
     }
     
 }
-
-
 
 int main() {
     // Create time seed for random integer. 
